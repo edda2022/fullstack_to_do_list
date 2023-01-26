@@ -2,24 +2,23 @@ const express = require('express')
 require("dotenv/config");
 const app = express();
 const taskRouter = require('./routes/tasks')
+app.use(express.json());
 
 const cors = require('cors');
 app.use(cors());
 
 const PORT = 3003;
-
-app.use(express.json());
+app.use("/tasks", taskRouter)
 
 app.get('/', (req, res) => {
-    res.send(req)
+    res.send('hi There')
   })
 
-app.post('/', (req, res) => {
-    console.log(req.body)
-    res.send(req.body)
-})
+// app.post('/', (req, res) => {
+//     console.log(req.body)
+//     res.send(req.body)
+// })
 
-app.use("/tasks", taskRouter)
 
 
 app.listen(PORT, () => {
