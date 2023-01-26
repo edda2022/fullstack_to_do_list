@@ -1,25 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import { useState } from 'react';
 
 function App() {
+  const [inputToDo, setInputToDo] = useState("");
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    axios
+    .post("http://localhost:3003/", { req: inputToDo })
+    .then((res) => {
+      console.log('add button clicked');
+    });
+  }
+
+  const handleChange = (event) => {
+    setInputToDo(event.target.value);
+    console.log(inputToDo);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <form>
+        <span>
+          <input type="text" value={inputToDo} onChange={handleChange} placeholder='type todo here'/>
+        </span>
+        <button type="submit" value="Add" onSubmit={handleSubmit}>Add</button>
+      </form>
     </div>
   );
 }
-
 export default App;

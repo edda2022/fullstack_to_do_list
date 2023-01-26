@@ -1,10 +1,7 @@
 const express = require('express')
 const taskRouter = express.Router()
+const {getToDos} = require('../controller/tasks')
 
-taskRouter.get('/', (req, res) => {
-    res.send('Hi there')
-})
+taskRouter.get('/', getToDos)
 
-module.exports =  {
-    taskRouter
-}
+module.exports = taskRouter
