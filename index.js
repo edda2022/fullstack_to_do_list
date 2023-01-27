@@ -11,15 +11,8 @@ const PORT = 3003;
 app.use("/tasks", taskRouter)
 
 app.get('/', (req, res) => {
-    res.send('hi There')
+    res.send(`<h1>Welcome to our To-Do-List</h1>`)
   })
-
-// app.post('/', (req, res) => {
-//     console.log(req.body)
-//     res.send(req.body)
-// })
-
-
 
 app.listen(PORT, () => {
     console.log(`App listening on http://localhost:${PORT}`)
