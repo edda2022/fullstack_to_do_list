@@ -1,9 +1,11 @@
 import './App.css';
 import axios from 'axios';
 import { useState } from 'react';
+import Todos from './components/Todos';
 
 function App() {
   const [inputToDo, setInputToDo] = useState("");
+  const [todosList, setTodosList] = useState("");
 
   const handleSubmit = ((e) => {
     e.preventDefault();
@@ -40,6 +42,7 @@ function App() {
         </span>
         <button type="submit" value="Add" onClick={handleSubmit}>Add</button>
       </form>
+      <Todos />
     </div>
   );
 }
