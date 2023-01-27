@@ -14,13 +14,6 @@ app.get('/', (req, res) => {
     res.send('hi There')
   })
 
-// app.post('/', (req, res) => {
-//     console.log(req.body)
-//     res.send(req.body)
-// })
-
-
-
 app.listen(PORT, () => {
     console.log(`App listening on http://localhost:${PORT}`)
 })
