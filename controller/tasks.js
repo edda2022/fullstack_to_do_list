@@ -12,8 +12,12 @@ const getToDos = async (req, res)=>{
 
 const createToDo = async (req, res)=>{
     try {
-        const reqValue = req.body.req.inputToDo
-        const todo = await pool.query('INSERT INTO todos (value) VALUES ($1) RETURNING*;',[reqValue])
+        const reqToDo = req.body.reqTodo.inputToDo
+        const reqStatus = req.body.reqStatus.inputStatus
+        const reqDeadline = req.body.reqDeadline.inputDeadline
+        const reqPriority = req.body.reqPriority.inputPriority
+        const reqCreatedAt = req.body.reqCreatedAt.inputCreatedAt
+        const todo = await pool.query('INSERT INTO todos (value, status, deadline, priority, created_at) VALUES ($1, $2, $3, $4, $5) RETURNING*;',[reqToDo, reqStatus, reqDeadline, reqPriority, reqCreatedAt])
         res.json(todo.rows)
     } catch (err) {
         res.status(500).send('Something went wrong while creating a todo')
