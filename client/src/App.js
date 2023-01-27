@@ -1,8 +1,7 @@
 import './App.css';
 import axios from 'axios';
 import { useState } from 'react';
-import './App.css'
-import Todos from './Todos';
+import Todos from './components/Todos';
 
 function App() {
   const [inputToDo, setInputToDo] = useState("");
@@ -10,6 +9,8 @@ function App() {
   const [inputDeadline, setInputDeadline] = useState("");
   const [inputPriority, setInputPriority] = useState("");
   const [inputCreatedAt, setInputCreatedAt] = useState("");
+
+  const [todosList, setTodosList] = useState("");
 
   const handleSubmit = ((e) => {
     e.preventDefault();
