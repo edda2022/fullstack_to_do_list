@@ -1,3 +1,4 @@
+import moment from 'moment'
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -49,46 +50,52 @@ function Todos() {
       <table>
         <thead>
           <tr>
+            <th>Id</th>
             <th>To Do</th>
             <th>Priority</th>
             <th>Status</th>
             <th>Created At</th>
             <th>Deadline</th>
+            <th>Time Left</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {todosList.map((todo) => {
-            const deadline = new Date(todo.deadline);
-            const now = new Date();
-            const oneHour = 60 * 60 * 1000; // One hour in milliseconds
-            const timeLeft = deadline - now;
+            const now = moment(new Date());
+            const deadline = moment(new Date(todo.deadline));
+            const timeDifferenceInMinutes = deadline.diff(now, 'minutes');
+            
+            const numDays = Math.floor(timeDifferenceInMinutes / 1440);
+            const numHours = Math.floor((timeDifferenceInMinutes % 1440) / 60);
+            const numMinutes = Math.floor((timeDifferenceInMinutes % 1440) % 60);
+            //const timeLeft = numDays + " day(s) " + numHours +"h " + numMinutes +"m";
+            const timeLeft = `${numDays} day(s) ${numHours} hr ${numMinutes} mins`;
+
             return (
               <tr
                 key={todo.id}
                 style={{
                   backgroundColor:
-                    todo.priority === 1
-                      ? "red"
-                      : todo.priority === 2
-                      ? "yellow"
-                      : "green",
+                  numDays < 0 || numHours < 0 || numMinutes < 0
+                  ? "yellow"
+                  : numDays === 0 && numHours < 1
+                  ? "red"
+                  : "green",
                 }}
               >
-                <td>{todo.id}: {todo.value}</td>
+                <td>{todo.id}</td>
+                <td>{todo.value}</td>
                 <td>{todo.priority}</td>
                 <td>{todo.status}</td>
-                <td>{todo.created_at}</td>
-                <td>
-                  {todo.deadline}
-                </td>
+                <td>{moment().format('YYYY-MM-DD')}</td>
+                <td>{moment(todo.deadline).format('YYYY-MM-DD')}</td>
+                <td>{timeLeft}</td>
                 <td>
                   <button className="button" onClick={handleDelete} value={todo.id}>DEL</button>
                   <button className="button" onClick={handleDone} value={todo.id}>DONE</button>
                   <button className="button" onClick={handleChange}value={todo.id}>CHANGE</button>
-
                 </td>
-
               </tr>
             );
           })}

@@ -10,7 +10,6 @@ function App() {
   const [inputPriority, setInputPriority] = useState("");
   const [inputCreatedAt, setInputCreatedAt] = useState("");
 
-
   const handleSubmit = ((e) => {
     e.preventDefault();
     axios.post('http://localhost:3003/tasks', {
@@ -54,9 +53,9 @@ function App() {
       <form className='div-form'>
         <span className='input-fields'>
           <input type="text" value={inputToDo} onChange={handleChangeToDo} placeholder='type todo here'/>
-          <input type="text" value={inputCreatedAt} onChange={handleChangeCreatedAt} placeholder='insert created date'/>
           <input type="text" value={inputPriority} onChange={handleChangePriority} placeholder='insert priority'/>
           <input type="text" value={inputStatus} onChange={handleChangeStatus} placeholder='insert status'/>
+          <input type="text" value={inputCreatedAt} onChange={handleChangeCreatedAt} placeholder='insert created date'/>
           <input type="text" value={inputDeadline} onChange={handleChangeDeadline} placeholder='insert deadline'/>
         </span>
         <button type="submit" value="Add" onClick={handleSubmit}>Add</button>
