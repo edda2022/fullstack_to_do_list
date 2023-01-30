@@ -10,7 +10,6 @@ function App() {
   const [inputPriority, setInputPriority] = useState("");
   const [inputCreatedAt, setInputCreatedAt] = useState("");
 
-  const [todosList, setTodosList] = useState("");
 
   const handleSubmit = ((e) => {
     e.preventDefault();
@@ -22,7 +21,6 @@ function App() {
       reqCreatedAt: {inputCreatedAt}
     })
     .then((response) => {
-      console.log('add button clicked');
       })
     .catch((err) => {
       console.log(err);
