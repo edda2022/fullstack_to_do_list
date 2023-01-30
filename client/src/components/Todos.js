@@ -1,22 +1,49 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import moment from 'moment'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 function Todos() {
   const [todosList, setTodosList] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
-        try {
-          const response = await axios.get('http://localhost:3003/tasks');
-          setTodosList(response.data);
-          console.log(response.data);
-        } catch (error) {
-          console.log(error);
-        }
+      try {
+        const response = await axios.get("http://localhost:3003/tasks");
+        setTodosList(response.data);
+      } catch (error) {
+        console.log(error);
+      }
     }
     fetchData();
   }, []);
+
+  const handleDelete = (e) => {
+    const id = e.target.value;
+    axios
+    .delete(`http://localhost:3003/tasks/${id}`)
+        .then((response) => {
+            alert(`todo with id${id} deleted`)
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+ };
+
+ const handleChange = () => {};
+
+ const handleDone = (e) => {
+  const id = e.target.value;
+  axios.put(`http://localhost:3003/tasks/${id}`, {
+    status: 'done',
+  })
+    .then((response) => {
+    console.log(response.data)
+    alert(`todo with id${id} was marked as done`)
+    })
+  .catch((err) => {
+    console.log(err);
+    });
+ };
 
   return (
     <div>
@@ -65,9 +92,9 @@ function Todos() {
                 <td>{moment(todo.deadline).format('YYYY-MM-DD')}</td>
                 <td>{timeLeft}</td>
                 <td>
-                  <button className="button" value={todo.id}>DEL</button>
-                  <button className="button" value={todo.id}>DONE</button>
-                  <button className="button" value={todo.id}>CHANGE</button>
+                  <button className="button" onClick={handleDelete} value={todo.id}>DEL</button>
+                  <button className="button" onClick={handleDone} value={todo.id}>DONE</button>
+                  <button className="button" onClick={handleChange}value={todo.id}>CHANGE</button>
                 </td>
               </tr>
             );

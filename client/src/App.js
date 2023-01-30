@@ -20,7 +20,6 @@ function App() {
       reqCreatedAt: {inputCreatedAt}
     })
     .then((response) => {
-      console.log('add button clicked');
       })
     .catch((err) => {
       console.log(err);
